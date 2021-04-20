@@ -1,0 +1,5 @@
+.gradle
+.idea
+build
+out
+catalina.home_IS_UNDEFINED

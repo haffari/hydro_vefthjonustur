@@ -1,0 +1,41 @@
+repositories {
+    maven {
+        url "${artifactoryHostAndPort}/artifactory/libs-release"
+        allowInsecureProtocol = true
+    }
+    maven {
+        url "${artifactoryHostAndPort}/artifactory/libs-snapshot"
+        allowInsecureProtocol = true
+    }
+}
+
+apply plugin: 'war'
+
+dependencies {
+    implementation 'is.codion.jdk8:codion-framework-db-local:0.17.12'
+    implementation 'is.codion.jdk8:codion-dbms-oracle:0.17.12'
+
+    implementation "org.slf4j:slf4j-api:1.7.30"
+    runtimeOnly 'is.codion.jdk8:codion-plugin-logback-proxy:0.17.12'
+
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.30.1'
+
+    testRuntimeOnly ('com.oracle.database.jdbc:ojdbc8:19.3.0.0') {
+        transitive false
+    }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+
+//    testRuntimeOnly 'is.codion.jdk8:codion-plugin-jasperreports:0.17.12'
+//    testRuntimeOnly ('net.sf.jasperreports:jasperreports:6.3.1') {
+//        transitive false
+//    }
+}
+
+project.webAppDirName = 'web'
+
+test {
+    useJUnitPlatform()
+    systemProperty "codion.db.url", "jdbc:oracle:thin:@hafaudn.hafro.is:1521:ran"
+}

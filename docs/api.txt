@@ -1,0 +1,39 @@
+Auðkenning byggir á preemtive basic http authentication.
+
+Java dæmi:
+
+String basic = "Basic " + DatatypeConverter.printBase64Binary("notendanfn:lykilorð".getBytes());
+headers.put("Authorization", Collections.singletonList(basic));
+
+SÆKIR HITASTIG FYRIR MÆLISTÖÐ/STAÐ FYRIR ÁKVEÐIÐ TÍMABIL
+
+GET
+/hitastig
+
+Færibreytur:
+
+*dagsFra [yyyy-mm-dd]
+*dagsTil [yyyy-mm-dd]
+
+stadurId [int]
+
+*Verður að vera tiltekið.
+
+Gert er ráð fyrir að einungis ein id færibreyta sé notuð í hverju kalli, þ.e.a.s. stadurId.
+
+Dæmi:
+
+/hitastig?stadur=Grímsey&dagsFra=2021-09-01&dagsTil=2021-09-10&stadurId=4
+
+[
+   {
+      "stadur": Grímsey,
+      "dags": "2012-09-08",
+      "hitastig": 9.234000
+   },
+    {
+      "stadur": Grímsey,
+      "dags": "2012-09-08",
+      "hitastig": 9.234000
+   }
+]
